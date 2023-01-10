@@ -1,0 +1,50 @@
+---
+Resources:
+  DefaultSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow access on ports 80 and 22
+      GroupName: Default SG
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: Default SG
+      VpcId: vpc-0d7b72b831728bd22
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      SubnetId: subnet-05a25e79a38459dc8
+      SecurityGroupIds:
+        - !Ref DefaultSG
+      KeyName: KeyPair
+      ImageId: ami-0a606d8395a538502
+      Tags:
+        - Key: Web Server
+          Value: StackName
+      UserData: 
+        Fn::Base64:
+          !Sub |
+            #!/bin/bash -xe
+            sudo yum update -y
+            sudo yum install -y httpd
+            sudo systemctl enable httpd
+            sudo systemctl start httpd
+            cd /var/www/html
+            sudo wget https://raw.githubusercontent.com/Shaq-C/Projects/main/Project-101-kittens-carousel-static-website-ec2/static-web/index.html
+            sudo wget https://raw.githubusercontent.com/Shaq-C/Projects/main/Project-101-kittens-carousel-static-website-ec2/static-web/cat0.jpg
+            sudo wget https://raw.githubusercontent.com/Shaq-C/Projects/main/Project-101-kittens-carousel-static-website-ec2/static-web/cat1.jpg
+            sudo wget https://raw.githubusercontent.com/Shaq-C/Projects/main/Project-101-kittens-carousel-static-website-ec2/static-web/cat2.jpg
+            sudo wget https://raw.githubusercontent.com/Shaq-C/Projects/main/Project-101-kittens-carousel-static-website-ec2/static-web/cat3.png
+
+
+            
