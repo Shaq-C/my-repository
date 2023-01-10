@@ -1,4 +1,6 @@
----
+AWSTemplateFormatVersion: "2010-09-09"
+Description: |
+  CloudFormation template to deploy the Kittens Carousel web application
 Resources:
   DefaultSG:
     Type: AWS::EC2::SecurityGroup
@@ -33,7 +35,7 @@ Resources:
           Value: StackName
       UserData: 
         Fn::Base64:
-          !Sub |
+           |
             #!/bin/bash -xe
             sudo yum update -y
             sudo yum install -y httpd
