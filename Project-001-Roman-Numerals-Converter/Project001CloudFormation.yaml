@@ -44,5 +44,5 @@ Resources:
             cd /home/ec2-user
             wget https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/templates/index.html
             wget https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/templates/result.html
-            wget https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/templates/app.py
+            wget https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/app.py
             python3 app.py
