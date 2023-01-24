@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: |
+
+Resources:
+  DefaultSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow access on ports 80 and 22
+      GroupName: Default SG
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: Default SG
+      VpcId: vpc-0d7b72b831728bd22
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      SubnetId: subnet-05a25e79a38459dc8
+      SecurityGroupIds:
+        - !Ref DefaultSG
+      KeyName: KeyPair
+      ImageId: ami-0a606d8395a538502
+      Tags:
+        - Key: Web Server
+          Value: StackName
+      UserData: 
+        Fn::Base64:
+          |
+            #!/bin/bash
+            yum update -y
+            yum install python3 -y
+            pip3 install flask
+            yum install git -y
+            cd /home/ec2-user
+            wget https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/templates/index.html
+            wget https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/templates/result.html
+            wget https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/templates/app.py
+            python3 app.py
