@@ -42,7 +42,7 @@ Resources:
             pip3 install flask
             yum install git -y
             cd /home/ec2-user
-            wget https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/templates/index.html
-            wget https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/templates/result.html
+            wget -P templates https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/templates/index.html
+            wget -P templates https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/templates/result.html
             wget https://raw.githubusercontent.com/Shaq-C/my-repository/main/Project-001-Roman-Numerals-Converter/app.py
             python3 app.py
